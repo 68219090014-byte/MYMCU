@@ -1,3 +1,5 @@
 # งาน LCD
-LCD_Hello_world.ino
-finellC.ino2
+
+1.LCD_Hello_world.ino
+
+2.finellC.ino2
