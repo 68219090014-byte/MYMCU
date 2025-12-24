@@ -1,0 +1,71 @@
+#8.3
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <DHT.h> 
+#define DHTPIN 4  
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+    Serial.begin(9600);
+    dht.begin();
+    lcd.init();
+    lcd.backlight();
+    lcd.clear();
+
+   lcd.setCursor(0, 0);
+   lcd.print("LAB3.1 Sen-DHT11");
+   lcd.setCursor(0, 1);
+   lcd.print("Thanapat/Supadet");
+   
+   delay(2000);
+   lcd.clear();
+
+}
+
+void loop() {
+     float h = dht.readHumidity();
+  float c = dht.readTemperature();
+
+  Serial.print("Humidity: ");  Serial.print(h);  Serial.print(" %\t");
+  Serial.print("Temperature: ");  Serial.print(c);  Serial.println(" C");
+
+  if (isnan(h) || isnan(c)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  Serial.print("Humidity: ");  Serial.print(h);  Serial.print(" %\t");
+  Serial.print("Temperature: ");  Serial.print(c);  Serial.println(" C");
+  
+  /* display LCD */
+  lcd.setCursor(0, 0);
+  lcd.print("Humi :");
+  lcd.setCursor(7, 0);
+  lcd.print("     ");
+  lcd.print(h);
+  lcd.setCursor(15, 0);
+  lcd.print("%");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Temp :");
+  lcd.setCursor(7, 1);
+  lcd.print("     ");
+  lcd.print(c);
+  lcd.setCursor(15, 1);
+  lcd.print("c");
+}
+
+void DHT(){
+
+  float h = dht.readHumidity();
+  float c = dht.readTemperature();
+
+  if (isnan(h) || isnan(c)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  Serial.print("Humidity: ");  Serial.print(h);  Serial.print(" %\t");
+  Serial.print("Temperature: ");  Serial.print(c);  Serial.println(" C");
+}
